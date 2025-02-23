@@ -1,5 +1,5 @@
 import { UserRepository } from "../../repository/user/UserRepository";
-import { CreateUserDto } from "../../dto/CreateUserDto";
+import { CreateUserDto } from "../../dto/user/CreateUserDto";
 import { hash } from "bcryptjs";
 
 export interface UserRequest {
@@ -17,7 +17,7 @@ class CreateUserService {
       throw new Error("Email incorrect");
     }
 
-    const userAlreadyExists = await userRepository.findUserByEmail(email);
+    const userAlreadyExists = await userRepository.findByEmail(email);
 
     if (userAlreadyExists) {
       throw new Error("Email already exists");
