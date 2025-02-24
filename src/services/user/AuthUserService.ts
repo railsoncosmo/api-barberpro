@@ -18,7 +18,6 @@ class AuthUserService {
             throw new Error("Email/password incorrect")
         }
 
-        console.log(user);
 
         const passwordMatch = await compare(password, user?.password)
 

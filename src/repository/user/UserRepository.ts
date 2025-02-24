@@ -1,5 +1,6 @@
 import { PrismaClient, Subscription, User } from '@prisma/client';
 import { UserRequest } from '../../services/user/CreateUserService';
+import { CreateUserDto } from '../../dto/user/UserDto';
 
 
 //Juntando a tipagem de User e Subscriptions
@@ -34,4 +35,27 @@ class AuthUserRepository {
     }
 }
 
-export { UserRepository, AuthUserRepository };
+class DetailUserRepository {
+    async detailByUser(user_id: string): Promise<UserAndSubscription | CreateUserDto> {
+        return await prisma.user.findFirst({
+            where: {
+                id: user_id
+            },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                endereco: true,
+                subscriptions: {
+                    select: {
+                        id: true,
+                        priceId: true,
+                        status: true
+                    }
+                }
+            }
+        })
+    }
+}
+
+export { UserRepository, AuthUserRepository, DetailUserRepository };
