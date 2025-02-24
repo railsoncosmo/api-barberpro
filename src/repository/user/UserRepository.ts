@@ -11,19 +11,24 @@ type UserAndSubscription = User & {
 const prisma = new PrismaClient();
 
 class UserRepository {
+
     async findByEmail(email: string): Promise<User | null> {
         return await prisma.user.findUnique({
             where: { email }
         });
     }
 
+    async findByUser(user_id: string): Promise<User>{
+        return await prisma.user.findFirst({
+            where: { id: user_id }
+        })
+    }
+
     async createUser(data: UserRequest): Promise<User>{
         return await prisma.user.create({ data })
     }
-}
 
-class AuthUserRepository {
-    async findByUser(email: string, password: string): Promise<UserAndSubscription | null> {
+    async findByAuthUser(email: string, password: string): Promise<UserAndSubscription | null> {
         return await prisma.user.findFirst({ 
             where: { 
                 email
@@ -33,9 +38,7 @@ class AuthUserRepository {
             }
          });
     }
-}
 
-class DetailUserRepository {
     async detailByUser(user_id: string): Promise<UserAndSubscription | CreateUserDto> {
         return await prisma.user.findFirst({
             where: {
@@ -56,6 +59,23 @@ class DetailUserRepository {
             }
         })
     }
+
+    async updateByUser(user_id: string, name: string, endereco: string): Promise<CreateUserDto>{
+        return await prisma.user.update({
+            where: {
+                id: user_id
+            },
+            data: {
+                name,
+                endereco,
+            },
+            select: {
+                name: true,
+                email: true,
+                endereco: true
+            }
+        })
+    }
 }
 
-export { UserRepository, AuthUserRepository, DetailUserRepository };
+export { UserRepository };

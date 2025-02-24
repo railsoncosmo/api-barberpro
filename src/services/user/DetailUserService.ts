@@ -1,7 +1,7 @@
-import { DetailUserRepository } from '../../repository/user/UserRepository';
+import { UserRepository } from '../../repository/user/UserRepository';
 import { CreateUserDto } from '../../dto/user/UserDto';
 
-const detailUserRepository = new DetailUserRepository();
+const detailUserRepository = new UserRepository();
 
 class DetailUserService {
     async getUser(user_id: string): Promise<CreateUserDto> {

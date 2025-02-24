@@ -1,4 +1,4 @@
-import { AuthUserRepository } from "../../repository/user/UserRepository"
+import { UserRepository } from "../../repository/user/UserRepository"
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
@@ -7,12 +7,12 @@ interface AuthRequest {
     password: string
 }
 
-const authUserRepository = new AuthUserRepository();
+const authUserRepository = new UserRepository();
 
 class AuthUserService {
     async authUser({ email, password }: AuthRequest) {
 
-        const user = await authUserRepository.findByUser(email, password)
+        const user = await authUserRepository.findByAuthUser(email, password)
 
         if(!user){
             throw new Error("Email/password incorrect")
