@@ -1,12 +1,6 @@
-import { PrismaClient, Subscription, User } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { UserRequest } from '../../services/user/CreateUserService';
 import { CreateUserDto } from '../../dto/user/UserDto';
-
-
-//Juntando a tipagem de User e Subscriptions
-type UserAndSubscription = User & {
-    subscriptions?: Subscription | null;
-};
 
 const prisma = new PrismaClient();
 
@@ -18,9 +12,15 @@ class UserRepository {
         });
     }
 
-    async findByUser(user_id: string): Promise<User>{
-        return await prisma.user.findFirst({
-            where: { id: user_id }
+    async findByUser(user_id: string): Promise<CreateUserDto | null>{
+        return await prisma.user.findUnique({
+            where: { 
+                id: user_id 
+            },
+            include: {
+                subscriptions: true,
+            },
+
         })
     }
 
@@ -28,10 +28,10 @@ class UserRepository {
         return await prisma.user.create({ data })
     }
 
-    async findByAuthUser(email: string, password: string): Promise<UserAndSubscription | null> {
-        return await prisma.user.findFirst({ 
+    async findByAuthUser(email: string, password: string): Promise<CreateUserDto | null> {
+        return await prisma.user.findUnique({ 
             where: { 
-                email
+                email,
             },
             include: {
                 subscriptions: true
@@ -39,23 +39,17 @@ class UserRepository {
          });
     }
 
-    async detailByUser(user_id: string): Promise<UserAndSubscription | CreateUserDto> {
+    async detailByUser(user_id: string): Promise<CreateUserDto> {
         return await prisma.user.findFirst({
             where: {
                 id: user_id
             },
             select: {
                 id: true,
-                email: true,
                 name: true,
+                email: true,
                 endereco: true,
-                subscriptions: {
-                    select: {
-                        id: true,
-                        priceId: true,
-                        status: true
-                    }
-                }
+                subscriptions: true
             }
         })
     }
@@ -70,9 +64,11 @@ class UserRepository {
                 endereco,
             },
             select: {
+                id: true,
                 name: true,
                 email: true,
-                endereco: true
+                endereco: true,
+                subscriptions: true
             }
         })
     }

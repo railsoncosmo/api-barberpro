@@ -2,14 +2,14 @@ import { UserRepository } from '../../repository/user/UserRepository';
 
 const updateUserRepository = new UserRepository();
 
-interface UserRequest {
+interface UpdateRequest {
     user_id: string
     name: string
     endereco: string
 }
 
 class UpdateUserService {
-    async updateUser({ user_id, name, endereco }: UserRequest){
+    async updateUser({ user_id, name, endereco }: UpdateRequest){
         
         try{
             
