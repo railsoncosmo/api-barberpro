@@ -39,17 +39,10 @@ class HaircutRepository {
         })
     }
 
-    async checkSubscription(user_id: string): Promise<CreateUserDto>{
-        return await prisma.user.findFirst({
+    async countHaircuts(user_id: string): Promise<Number>{
+        return await prisma.haircut.count({
             where: {
-                id: user_id
-            },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                endereco: true,
-                subscriptions: true
+                user_id: user_id
             }
         })
     }

@@ -1,10 +1,10 @@
-import { HaircutRepository } from "../../repository/haircut/HaircutRepository";
+import { UserRepository } from "../../repository/user/UserRepository";
 
 interface CheckSubscription {
     user_id: string
 }
 
-const haircutRepository = new HaircutRepository();
+const haircutRepository = new UserRepository();
 
 class CheckSubscriptionService {
     async checkSub({user_id}: CheckSubscription){

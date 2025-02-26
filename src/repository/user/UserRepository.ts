@@ -72,6 +72,21 @@ class UserRepository {
             }
         })
     }
+
+    async checkSubscription(user_id: string): Promise<CreateUserDto>{
+        return await prisma.user.findFirst({
+            where: {
+                id: user_id
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                endereco: true,
+                subscriptions: true
+            }
+        })
+    }
 }
 
 export { UserRepository };
