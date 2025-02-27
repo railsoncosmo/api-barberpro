@@ -1,4 +1,4 @@
-import { PrismaClient, User } from '@prisma/client';
+import { Haircut, PrismaClient, User } from '@prisma/client';
 import { UserRequest } from '../../services/user/CreateUserService';
 import { CreateUserDto } from '../../dto/user/UserDto';
 

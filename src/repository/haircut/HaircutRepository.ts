@@ -46,6 +46,14 @@ class HaircutRepository {
             }
         })
     }
+
+    async detailHaircut(haircut_id: string): Promise<Haircut>{
+        return await prisma.haircut.findUnique({
+            where: {
+                id: haircut_id,
+            }
+        })
+    }
 }
 
 export { HaircutRepository };
