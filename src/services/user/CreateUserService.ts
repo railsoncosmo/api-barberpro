@@ -1,5 +1,5 @@
 import { UserRepository } from "../../repository/user/UserRepository";
-import { CreateUserDto } from "../../dto/user/CreateUserDto";
+import { CreateUserDto } from "../../dto/user/UserDto";
 import { hash } from "bcryptjs";
 
 export interface UserRequest {
