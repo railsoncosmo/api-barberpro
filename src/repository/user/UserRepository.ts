@@ -1,6 +1,6 @@
-import { Haircut, PrismaClient, User } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { UserRequest } from '../../services/user/CreateUserService';
-import { CreateUserDto } from '../../dto/user/UserDto';
+import { CreateUserDto, UserAuth } from '../../dto/user/UserDto';
 
 const prisma = new PrismaClient();
 
@@ -28,7 +28,7 @@ class UserRepository {
         return await prisma.user.create({ data })
     }
 
-    async findByAuthUser(email: string, password: string): Promise<CreateUserDto | null> {
+    async findByAuthUser(email: string, password: string): Promise<UserAuth | null> {
         return await prisma.user.findUnique({ 
             where: { 
                 email,
