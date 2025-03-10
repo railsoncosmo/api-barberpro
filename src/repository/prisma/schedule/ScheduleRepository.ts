@@ -1,6 +1,6 @@
-import { PrismaClient, Services } from '@prisma/client';
-import { ScheduleRequest } from '../../services/schedule/CreateScheduleService';
-import { ServicesHaircuts } from '../../dto/schedule/ScheduleDto';
+import { PrismaClient } from '@prisma/client';
+import { ScheduleRequest } from '../../../services/schedule/CreateScheduleService';
+import { ServicesHaircuts } from '../../../dto/schedule/ScheduleDto';
 
 const prisma = new PrismaClient();
 
