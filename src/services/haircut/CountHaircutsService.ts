@@ -1,4 +1,4 @@
-import { HaircutRepository } from "../../repository/haircut/HaircutRepository";
+import { HaircutRepository } from "../../repository/prisma/haircut/HaircutRepository";
 
 interface CountRequest {
     user_id: string

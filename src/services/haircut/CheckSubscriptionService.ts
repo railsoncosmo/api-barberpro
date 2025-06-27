@@ -1,4 +1,4 @@
-import { UserRepository } from "../../repository/user/UserRepository";
+import { UserRepository } from "../../repository/prisma/user/UserRepository";
 
 interface CheckSubscription {
     user_id: string

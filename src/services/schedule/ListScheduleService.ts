@@ -1,4 +1,4 @@
-import { ScheduleRepository } from "../../repository/schedule/ScheduleRepository";
+import { ScheduleRepository } from "../../repository/prisma/schedule/ScheduleRepository";
 
 interface ListScheduleRequest {
     user_id: string

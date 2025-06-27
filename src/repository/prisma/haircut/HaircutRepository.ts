@@ -1,6 +1,5 @@
-import { PrismaClient, Haircut, Subscription, User } from '@prisma/client';
-import { HaircutRequest } from '../../services/haircut/CreateHaircutService';
-import { CreateUserDto } from '../../dto/user/UserDto';
+import { PrismaClient, Haircut } from '@prisma/client';
+import { HaircutRequest } from '../../../services/haircut/CreateHaircutService';
 
 const prisma = new PrismaClient();
 class HaircutRepository {

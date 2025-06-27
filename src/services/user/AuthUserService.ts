@@ -1,4 +1,4 @@
-import { UserRepository } from "../../repository/user/UserRepository"
+import { UserRepository } from "../../repository/prisma/user/UserRepository"
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 

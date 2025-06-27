@@ -1,35 +1,45 @@
 import { PrismaClient, User } from '@prisma/client';
-import { UserRequest } from '../../services/user/CreateUserService';
-import { CreateUserDto, UserAuth } from '../../dto/user/UserDto';
+import { UserRequest } from '../../../services/user/CreateUserService';
+import { UserDto, UserAuth } from '../../../dto/user/UserDto';
+import { IUserRespository } from './IUserRepository';
 
 const prisma = new PrismaClient();
 
-class UserRepository {
+class UserRepository implements IUserRespository {
 
     async findByEmail(email: string): Promise<User | null> {
-        return await prisma.user.findUnique({
-            where: { email }
+        const emailUser = await prisma.user.findUnique({
+            where: { 
+                email
+             }
         });
+
+        return emailUser;
     }
 
-    async findByUser(user_id: string): Promise<CreateUserDto | null>{
-        return await prisma.user.findUnique({
+    async findByUser(user_id: string): Promise<User | null>{
+        const user = await prisma.user.findUnique({
             where: { 
                 id: user_id 
             },
             include: {
                 subscriptions: true,
             },
-
         })
+
+        return user;
     }
 
     async createUser(data: UserRequest): Promise<User>{
-        return await prisma.user.create({ data })
+        const user = await prisma.user.create({ 
+            data,
+         })
+
+         return user;
     }
 
-    async findByAuthUser(email: string, password: string): Promise<UserAuth | null> {
-        return await prisma.user.findUnique({ 
+    async findByAuthUser(email: string, _password: string): Promise<UserAuth | null> {
+        const authUser = await prisma.user.findUnique({ 
             where: { 
                 email,
             },
@@ -37,10 +47,12 @@ class UserRepository {
                 subscriptions: true
             }
          });
+
+         return authUser;
     }
 
-    async detailByUser(user_id: string): Promise<CreateUserDto> {
-        return await prisma.user.findFirst({
+    async detailByUser(user_id: string): Promise<UserDto> {
+        const detailUser = await prisma.user.findFirst({
             where: {
                 id: user_id
             },
@@ -52,10 +64,12 @@ class UserRepository {
                 subscriptions: true
             }
         })
+
+        return detailUser;
     }
 
-    async updateByUser(user_id: string, name: string, endereco: string): Promise<CreateUserDto>{
-        return await prisma.user.update({
+    async updateByUser(user_id: string, name: string, endereco: string): Promise<UserDto>{
+        const updatedUser = await prisma.user.update({
             where: {
                 id: user_id
             },
@@ -71,10 +85,12 @@ class UserRepository {
                 subscriptions: true
             }
         })
+
+        return updatedUser;
     }
 
-    async checkSubscription(user_id: string): Promise<CreateUserDto>{
-        return await prisma.user.findFirst({
+    async checkSubscription(user_id: string): Promise<UserDto>{
+        const checkSubUser = await prisma.user.findFirst({
             where: {
                 id: user_id
             },
@@ -86,6 +102,8 @@ class UserRepository {
                 subscriptions: true
             }
         })
+
+        return checkSubUser;
     }
 }
 

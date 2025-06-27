@@ -1,5 +1,5 @@
-import { HaircutRepository } from "../../repository/haircut/HaircutRepository";
-import { UserRepository } from "../../repository/user/UserRepository";
+import { HaircutRepository } from "../../repository/prisma/haircut/HaircutRepository";
+import { UserRepository } from "../../repository/prisma/user/UserRepository";
 
 interface UpdateHaircutRequest{
     user_id: string

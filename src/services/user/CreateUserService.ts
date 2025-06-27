@@ -1,6 +1,5 @@
-import { UserRepository } from "../../repository/user/UserRepository";
-import { CreateUserDto } from "../../dto/user/UserDto";
-import { hash } from "bcryptjs";
+import { UserRepository } from "../../repository/prisma/user/UserRepository";
+import { UserDto } from "../../dto/user/UserDto";
 
 export interface UserRequest {
   name: string;
@@ -12,7 +11,7 @@ export interface UserRequest {
 const userRepository = new UserRepository();
 
 class CreateUserService {
-  async userRegister({ name, email, endereco, password }: UserRequest): Promise<CreateUserDto> {
+  async userRegister({ name, email, endereco, password }: UserRequest): Promise<UserDto> {
     if (!email) {
       throw new Error("Email incorrect");
     }
@@ -24,19 +23,18 @@ class CreateUserService {
     }
 
     try {
-      const passwordHash = await hash(password, 10);
       const user = await userRepository.createUser({
         name,
         email,
         endereco,
-        password: passwordHash,
+        password,
       });
 
       return {
         id: user.id,
         name: user.name,
         email: user.email,
-        endereco: endereco
+        endereco
       };
 
     } catch (error) {

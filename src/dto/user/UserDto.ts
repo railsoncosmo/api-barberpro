@@ -1,5 +1,5 @@
 
-export interface CreateUserDto {
+export interface UserDto {
     id: string
     user_id?: string 
     name: string
