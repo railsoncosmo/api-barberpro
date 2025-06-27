@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.scheduleRoutes = void 0;
+const express_1 = require("express");
+const CreateScheduleController_1 = require("../controllers/schedule/CreateScheduleController");
+const ListScheduleController_1 = require("../controllers/schedule/ListScheduleController");
+const FinishScheduleController_1 = require("../controllers/schedule/FinishScheduleController");
+const isAthenticated_1 = require("../middlewares/isAthenticated");
+const scheduleRoutes = (0, express_1.Router)();
+exports.scheduleRoutes = scheduleRoutes;
+scheduleRoutes.post('/schedule', isAthenticated_1.isAuthenticated, new CreateScheduleController_1.CreateScheduleController().createSchedule);
+scheduleRoutes.get('/schedules', isAthenticated_1.isAuthenticated, new ListScheduleController_1.ListScheduleController().listSchedules);
+scheduleRoutes.delete('/schedule', isAthenticated_1.isAuthenticated, new FinishScheduleController_1.FinishScheduleController().handleFinish);
