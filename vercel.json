@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "prisma generate && prisma migrate deploy",
   "builds": [
     {
       "src": "dist/server.js",
@@ -11,7 +12,6 @@
     {
       "src": "/(.*)",
       "dest": "dist/server.js",
-      "vercel-build": "prisma generate && prisma migrate deploy",
       "prisma:generate": "prisma generate"
     }
   ]
